@@ -1,15 +1,106 @@
 SELECT *
 FROM employees;
 
-
-
+---------------------------------------------------------------------------------------
 SELECT employee_id, first_name, last_name    -- 원하는 열 이름만 선택해서 결과 보기
 FROM employees
 ORDER BY employee_id DESC, first_name ASC;  -- ASC랑 DESC랑 같은 결과임(내림차순 출력)
 -- SQL은 대문자 소문자 가리지않는다. 
 
+---------------------------------------------------------------------------------------
+SELECT DISTINCT job_id
+FROM employees
+-- DISTINCT : job_id를 기준으로 고유한값들, 즉 중복 제거 
 
-
---별명사용 AS
+---------------------------------------------------------------------------------------
 SELECT employee_id AS 사원번호, first_name AS 이름, last_name AS 성
 FROM employees;
+-- AS : 열 이름을 바꾸어 사용한다.
+
+---------------------------------------------------------------------------------------
+SELECT employee_id, first_name || last_name
+FROM employees;
+-- || : 두 개의 열을 붙인다.
+
+SELECT employee_id,
+        first_name || ' ' || last_name,
+        email || '@' || 'company.com'
+FROM employees;
+-- || : 활용 가능
+
+---------------------------------------------------------------------------------------
+SELECT employee_id, salary, salary+500, salary-100, (salary * 1.1)/2
+FROM employees;
+-- 새로운 열을 생성한 것이 아니라 보여만 주는 것임.
+
+SELECT employee_id AS 사원번호,
+        salary AS 급여,
+        salary+500 AS 추가급여,
+        salary-100 AS 인하급여,
+        (salary * 1.1)/2 AS 조정급여
+FROM employees;
+-- 별명도 역시 보여만 주는 것임.
+
+---------------------------------------------------------------------------------------
+SELECT *
+FROM employees
+WHERE employee_id = 100;
+-- WHERE : 아이디가 100인 사람의 정보만 출력
+
+---------------------------------------------------------------------------------------
+SELECT *
+FROM employees
+WHERE salary BETWEEN 10000 AND 20000;
+-- BETWEEN a AND b a와 b 사이의 수
+
+---------------------------------------------------------------------------------------
+SELECT *
+FROM employees
+WHERE salary IN(1000, 17000, 24000);
+-- IN : 딱 그 수만 골라서 보여줘
+
+---------------------------------------------------------------------------------------
+SELECT *
+FROM employees
+WHERE job_id LIKE 'AD%';
+-- LIKE : 명확하지 않은 조건으로 찾을떄
+-- ~처럼, ~같은
+-- % : 모든 문자를 의미
+
+SELECT *
+FROM employees
+WHERE first_name LIKE 'Le%';
+
+SELECT *
+FROM employees
+WHERE first_name LIKE '%ame%';
+
+SELECT *
+FROM employees
+WHERE first_name LIKE '%in';
+
+---------------------------------------------------------------------------------------
+SELECT *
+FROM employees
+WHERE salary >4000
+AND job_id = 'IT_PROG'
+OR job_id = 'FI_ACCOUNT';
+-- 조건들을 모두 충족하는 데이터 검색
+-- AND 나 OR를 계속 붙일 수 있다.
+
+---------------------------------------------------------------------------------------
+SELECT *
+FROM employees
+WHERE manager_id IS NOT NULL;
+-- IS NULL <> IS NOT NULL
+
+---------------------------------------------------------------------------------------
+SELECT job_id,
+    LTRIM(job_id, 'F'),
+    RTRIM(job_id, 'T')
+FROM employees;
+
+---------------------------------------------------------------------------------------
+SELECT TRIM('   Big Data   ')
+FROM dual;
+
