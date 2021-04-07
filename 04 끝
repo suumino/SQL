@@ -1,0 +1,10 @@
+SELECT COUNT(salary)
+FROM employees;
+-- 수 센다.
+
+SELECT job_id, SUM(salary) 직무별_총급여, AVG(salary) 직무별_평균급여
+FROM employees
+WHERE employee_id >= 10
+GROUP BY job_id
+HAVING SUM(salary) > 30000
+ORDER BY 직무별_총급여 DESC, 직무별_평균급여;
